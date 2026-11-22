@@ -379,9 +379,9 @@ function Donut({ slices }: { slices: Array<{ label: string; value: number; color
         {slices.map((s) => (
           <li key={s.label} className="flex items-center gap-2.5">
             <span className="h-3 w-3 shrink-0 rounded-sm" style={{ background: s.color }} />
-            <span className="flex-1 text-muted">{s.label}</span>
-            <span className="font-bold">{omr(s.value)}</span>
-            <span className="w-10 text-right text-xs text-muted">{total > 0 ? Math.round((Math.max(0, s.value) / total) * 100) : 0}%</span>
+            <span className="min-w-0 flex-1 truncate whitespace-nowrap text-muted">{s.label}</span>
+            <span className="shrink-0 font-bold tabular-nums">{omr(s.value)}</span>
+            <span className="w-9 shrink-0 text-right text-xs tabular-nums text-muted">{total > 0 ? Math.round((Math.max(0, s.value) / total) * 100) : 0}%</span>
           </li>
         ))}
       </ul>

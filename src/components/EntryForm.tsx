@@ -45,7 +45,9 @@ export function EntryForm({ mode, projects, users, currentUserId, myAvailableCre
   const available = users ? users.find((u) => u.id === raisedBy)?.available ?? 0 : myAvailableCredit;
   const amountNum = Number(amount) || 0;
   const total = useMemo(() => totalWithTax(amountNum, taxMode, Number(taxPercent) || 0), [amountNum, taxMode, taxPercent]);
-  const overCredit = fundedByCredit && total > available + 0.01;
+  const forcedCredit = mode === "claim" && available > 0;
+  const creditOn = forcedCredit || fundedByCredit;
+  const overCredit = creditOn && total > available + 0.01;
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -65,9 +67,9 @@ export function EntryForm({ mode, projects, users, currentUserId, myAvailableCre
       attachments: files,
     };
     const result = edit
-      ? await updateClaim(edit.claimId, { ...base, applyTo, description, fundedByCredit, keepAttachments: keep })
+      ? await updateClaim(edit.claimId, { ...base, applyTo, description, fundedByCredit: creditOn, keepAttachments: keep })
       : mode === "claim"
-        ? await submitClaim({ ...base, applyTo, description, fundedByCredit, raisedByUserId: users ? raisedBy : undefined })
+        ? await submitClaim({ ...base, applyTo, description, fundedByCredit: creditOn, raisedByUserId: users ? raisedBy : undefined })
         : await addExpense({ ...base, projectId });
     setBusy(false);
     if (!result.ok) {
@@ -149,12 +151,14 @@ export function EntryForm({ mode, projects, users, currentUserId, myAvailableCre
         )}
 
         {mode === "claim" && (
-          <label className={`flex items-start gap-3 rounded-2xl border p-4 ${available > 0 ? "cursor-pointer border-line bg-soft" : "border-line bg-soft opacity-60"}`}>
-            <input type="checkbox" className="mt-1 h-5 w-5 accent-[#F15A24]" disabled={available <= 0} checked={fundedByCredit} onChange={(e) => setFundedByCredit(e.target.checked)} />
+          <label className="flex items-start gap-3 rounded-2xl border border-line bg-soft p-4">
+            <input type="checkbox" className="mt-1 h-5 w-5 accent-[#F15A24]" disabled checked={creditOn} readOnly />
             <span>
-              <span className="block font-bold">Fund this claim from credit balance</span>
+              <span className="block font-bold">Funded from credit balance</span>
               <span className={`block text-sm ${overCredit ? "font-semibold text-red-700" : "text-muted"}`}>
-                {available > 0 ? `Available credit: ${omr(available)}` : "No available credit balance."}
+                {available > 0
+                  ? `Available credit: ${omr(available)}. A claim can't be more than this - it is paid from the credit already given.`
+                  : "No credit balance, so this is a normal reimbursement."}
               </span>
             </span>
           </label>

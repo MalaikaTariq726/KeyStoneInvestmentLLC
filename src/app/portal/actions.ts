@@ -119,12 +119,18 @@ export async function submitClaim(input: unknown): Promise<ActionResult> {
   }
 
   const tax = taxFields(data.taxMode, data.taxPercent);
-  if (data.fundedByCredit) {
-    const claims = await db.collection<ClaimDoc>(C.claims).find({ userId: owner._id.toHexString(), fundedByCredit: true }).toArray();
-    const { available } = creditSummary(owner, claims);
+  // A person who has a credit balance claims from it and cannot claim more than is available -
+  // we have not given them that money, so they cannot claim it. Enforced whenever credit exists,
+  // not only when the box is ticked, so an unticked claim can't slip past the cap.
+  const creditClaims = await db.collection<ClaimDoc>(C.claims).find({ userId: owner._id.toHexString(), fundedByCredit: true }).toArray();
+  const { available } = creditSummary(owner, creditClaims);
+  const fundedByCredit = data.fundedByCredit || available > 0;
+  if (fundedByCredit) {
     const total = totalAmount({ amount: data.amount, ...tax });
     if (total > available + 0.01) {
-      return fail(`This claim's total including tax is more than the available credit (OMR ${available.toFixed(3).replace(/\.?0+$/, "")}).`);
+      const whose = owner._id.toHexString() === me.id ? "your" : "their";
+      const money = (n: number) => n.toFixed(3).replace(/\.?0+$/, "");
+      return fail(`This claim is OMR ${money(total)} including tax, more than ${whose} available credit of OMR ${money(available)}. Reduce the amount to fit the credit balance.`);
     }
   }
 
@@ -149,7 +155,7 @@ export async function submitClaim(input: unknown): Promise<ActionResult> {
     attachments: data.attachments,
     includesVat: tax.includesVat,
     taxPercent: dec(tax.taxPercent, style),
-    fundedByCredit: data.fundedByCredit,
+    fundedByCredit,
   };
   const result = await db.collection(C.claims).insertOne(doc);
 
@@ -461,13 +467,16 @@ export async function updateClaim(claimId: string, input: unknown): Promise<Acti
   }
 
   const tax = taxFields(data.taxMode, data.taxPercent);
-  if (data.fundedByCredit) {
-    const mine = await claims.find({ userId: me.id, fundedByCredit: true }).toArray();
-    let { available } = creditSummary(me.doc, mine);
-    // This claim's own amount is already reserved against the balance - add it back.
-    if (claim.fundedByCredit) available += totalAmount(claim);
-    if (totalAmount({ amount: data.amount, ...tax }) > available + 0.01) {
-      return fail(`This claim's total including tax is more than your available credit (OMR ${available.toFixed(3).replace(/\.?0+$/, "")}).`);
+  const mine = await claims.find({ userId: me.id, fundedByCredit: true }).toArray();
+  let { available } = creditSummary(me.doc, mine);
+  // This claim's own amount is already reserved against the balance - add it back.
+  if (claim.fundedByCredit) available += totalAmount(claim);
+  const fundedByCredit = data.fundedByCredit || available > 0;
+  if (fundedByCredit) {
+    const total = totalAmount({ amount: data.amount, ...tax });
+    if (total > available + 0.01) {
+      const money = (n: number) => n.toFixed(3).replace(/\.?0+$/, "");
+      return fail(`This claim is OMR ${money(total)} including tax, more than your available credit of OMR ${money(available)}. Reduce the amount to fit the credit balance.`);
     }
   }
 
@@ -488,7 +497,7 @@ export async function updateClaim(claimId: string, input: unknown): Promise<Acti
         taxPercent: dec(tax.taxPercent, style),
         attachments: files,
         proofImageBase64: null, // legacy image is folded into the list, as in the desktop app
-        fundedByCredit: data.fundedByCredit,
+        fundedByCredit,
       },
     },
   );
