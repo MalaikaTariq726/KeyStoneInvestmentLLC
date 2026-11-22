@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Stone Investment LLC | Building Excellence. Delivering Trust.</title>
+    <meta name="description" content="Key Stone Investment LLC - Leading Civil Construction, Industrial Steel, and MEP works provider in Sohar & Muscat.">
+    <meta name="theme-color" content="#ffffff">
+
+    <script>
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('anim');
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="assets/logo.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2B3990',   // Royal Blue from Logo
+                        accent: '#F15A24',    // Vibrant Orange from Logo
+                        midnight: '#0A0F26',  // Deep Midnight Blue
+                        ink: '#0F1535',
+                        muted: '#5B6280',
+                        soft: '#F5F7FC',
+                        line: '#E7EAF3',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['Sora', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        card: '0 1px 2px rgba(15,21,53,.04), 0 12px 32px -12px rgba(15,21,53,.12)',
+                        lift: '0 2px 4px rgba(15,21,53,.04), 0 30px 60px -20px rgba(43,57,144,.28)',
+                        glow: '0 18px 40px -12px rgba(241,90,36,.55)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root { --ease: cubic-bezier(.2, .7, .2, 1); }
+        html { scroll-padding-top: 96px; }
+        body { background: #fff; color: #0F1535; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+        ::selection { background: rgba(241, 90, 36, .2); }
+
+        .scroll-progress {
+            position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 70;
+            transform-origin: 0 50%; transform: scaleX(var(--p, 0));
+            background: linear-gradient(90deg, #F15A24, #2B3990);
+        }
+
+        /* Nav */
+        .nav-shell { transition: background .4s, box-shadow .4s, border-color .4s; }
+        .nav-shell.is-scrolled { background: rgba(255, 255, 255, .85); border-color: #E7EAF3; box-shadow: 0 12px 30px -15px rgba(15, 21, 53, .2); backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%); }
+        .nav-link { position: relative; color: #5B6280; transition: color .25s; }
+        .nav-link::after { content: ""; position: absolute; left: 50%; bottom: -8px; width: 5px; height: 5px; border-radius: 50%; background: #F15A24; transform: translateX(-50%) scale(0); transition: transform .3s var(--ease); }
+        .nav-link:hover, .nav-link.is-active { color: #0F1535; }
+        .nav-link.is-active::after { transform: translateX(-50%) scale(1); }
+
+        /* Backgrounds */
+        .dots { background-image: radial-gradient(rgba(43, 57, 144, .14) 1px, transparent 1px); background-size: 22px 22px; }
+        .blob { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; }
+
+        /* Buttons */
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; font-weight: 700; border-radius: 999px; transition: transform .3s var(--ease), box-shadow .3s, background .3s, color .3s, border-color .3s; }
+        .btn-primary { background: linear-gradient(120deg, #F15A24, #FF7B47); color: #fff; box-shadow: 0 18px 40px -12px rgba(241, 90, 36, .55); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 24px 50px -14px rgba(241, 90, 36, .7); }
+        .btn-ghost { background: #fff; color: #0F1535; border: 1px solid #E7EAF3; box-shadow: 0 1px 2px rgba(15,21,53,.04), 0 12px 32px -12px rgba(15,21,53,.12); }
+        .btn-ghost:hover { border-color: #0F1535; transform: translateY(-2px); }
+        .btn svg { transition: transform .3s var(--ease); }
+        .btn:hover svg.arrow { transform: translateX(4px); }
+
+        .grad-text { background: linear-gradient(100deg, #F15A24, #FF9566 50%, #F15A24); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shine 6s linear infinite; }
+        .grad-blue { background: linear-gradient(100deg, #2B3990, #4F62D8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        @keyframes shine { to { background-position: 200% center; } }
+
+        .eyebrow { display: inline-flex; align-items: center; gap: .6rem; font-size: .78rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: #F15A24; }
+        .eyebrow::before { content: ""; width: 26px; height: 2px; border-radius: 2px; background: currentColor; }
+
+        /* Cards */
+        .card { background: #fff; border: 1px solid #E7EAF3; box-shadow: 0 1px 2px rgba(15,21,53,.04), 0 12px 32px -12px rgba(15,21,53,.12); transition: transform .5s var(--ease), box-shadow .5s var(--ease), border-color .4s; }
+        .card-hover:hover { transform: translateY(-6px); box-shadow: 0 2px 4px rgba(15,21,53,.04), 0 30px 60px -20px rgba(43,57,144,.28); border-color: #d5dbef; }
+        .tilt { transform-style: preserve-3d; will-change: transform; }
+
+        /* Hero 3D panel */
+        .hero-panel { background: radial-gradient(120% 90% at 20% 0%, #E9EDFF 0%, rgba(233,237,255,0) 55%), radial-gradient(90% 80% at 100% 100%, #FFE9DF 0%, rgba(255,233,223,0) 60%), #F8F9FE; }
+        .hero-fallback { transition: opacity 1.2s var(--ease); }
+        .hero-panel.has-3d .hero-fallback { opacity: 0; }
+        .hero-canvas { opacity: 0; transition: opacity 1.2s var(--ease); }
+        .hero-canvas.is-ready { opacity: 1; }
+        .hero-canvas canvas { width: 100% !important; height: 100% !important; display: block; }
+        .float-card { animation: float 6s ease-in-out infinite; }
+        .float-card.delay { animation-delay: -3s; }
+        @keyframes float { 50% { transform: translateY(-10px); } }
+
+        /* Marquee */
+        .marquee { mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+        .marquee-track { display: flex; width: max-content; animation: marquee 36s linear infinite; }
+        .marquee-track span { padding: 0 1.75rem; white-space: nowrap; display: inline-flex; align-items: center; gap: 1.75rem; }
+        .marquee-track span::after { content: ""; width: 8px; height: 8px; background: #F15A24; transform: rotate(45deg); }
+        @keyframes marquee { to { transform: translateX(-50%); } }
+
+        /* Reveal (GSAP drives it; without JS or with reduced motion everything stays visible) */
+        .anim .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+        .anim .reveal.is-in { opacity: 1; transform: none; }
+
+        /* Project toggle */
+        .seg-btn { color: #5B6280; transition: color .3s, background .3s, box-shadow .3s; }
+        .seg-btn:hover { color: #0F1535; }
+        .seg-btn.is-active { background: #0F1535; color: #fff; box-shadow: 0 10px 25px -10px rgba(15, 21, 53, .6); }
+        .project-img { transition: opacity .9s var(--ease), transform 1.2s var(--ease); }
+        .project:hover .project-img { transform: scale(1.06); }
+
+        /* Form */
+        .field { width: 100%; background: #F5F7FC; border: 1px solid #E7EAF3; border-radius: 16px; padding: 1rem 1.15rem; color: #0F1535; outline: none; transition: border-color .25s, box-shadow .25s, background .25s; font-weight: 500; }
+        .field::placeholder { color: #9aa0b8; }
+        .field:focus { background: #fff; border-color: #F15A24; box-shadow: 0 0 0 4px rgba(241, 90, 36, .14); }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #F5F7FC; }
+        ::-webkit-scrollbar-thumb { background: #c9cfe3; border-radius: 10px; border: 2px solid #F5F7FC; }
+        ::-webkit-scrollbar-thumb:hover { background: #F15A24; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    <div class="scroll-progress" aria-hidden="true"></div>
+
+    <!-- Reusable logo mark -->
+    <svg width="0" height="0" class="absolute" aria-hidden="true">
+        <symbol id="ks-mark" viewBox="0 0 100 62">
+            <path d="M12 58 A38 38 0 0 1 88 58" fill="none" stroke="#2B3990" stroke-width="15" stroke-dasharray="22.2 2.4"/>
+            <path d="M40 8 H60 L57 30 H43 Z" fill="#F15A24"/>
+        </symbol>
+    </svg>
+
+    <!-- Navigation -->
+    <header class="fixed top-0 inset-x-0 z-50 px-3 md:px-6 pt-3 md:pt-4">
+        <nav class="nav-shell max-w-7xl mx-auto rounded-2xl md:rounded-full border border-transparent pl-4 pr-2 md:pl-5 py-2 flex justify-between items-center relative" id="navbar">
+            <a href="#home" class="flex items-center gap-3" aria-label="Key Stone Investment LLC home">
+                <svg class="w-12 h-8"><use href="#ks-mark"/></svg>
+                <span class="leading-none">
+                    <span class="block font-display font-extrabold tracking-tight text-[17px] text-accent">KEYSTONE</span>
+                    <span class="block text-[11px] font-bold text-primary tracking-wide mt-0.5">Investment LLC</span>
+                </span>
+            </a>
+
+            <div class="hidden lg:flex items-center gap-9 font-semibold text-[15px]">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="/login" class="btn btn-ghost px-4 sm:px-5 py-2.5 lg:py-3 text-sm" aria-label="Employee login">
+                    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+                    <span class="hidden sm:inline">Employee Login</span>
+                    <span class="sm:hidden sr-only">Employee access</span>
+                </a>
+                <a href="#contact" class="hidden lg:inline-flex btn btn-primary px-6 py-3 text-sm">Get a Quote
+                    <svg class="arrow w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                </a>
+
+            <button class="lg:hidden w-12 h-12 grid place-items-center rounded-xl bg-white border border-line shadow-card" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+            </div>
+
+            <div id="mobile-menu" class="hidden absolute top-full mt-3 left-0 w-full bg-white rounded-2xl p-5 flex-col gap-1 lg:hidden border border-line shadow-lift">
+                <a href="#home" class="mobile-link px-4 py-3 rounded-xl hover:bg-soft font-bold text-lg">Home</a>
+                <a href="#about" class="mobile-link px-4 py-3 rounded-xl hover:bg-soft font-bold text-lg">About Us</a>
+                <a href="#services" class="mobile-link px-4 py-3 rounded-xl hover:bg-soft font-bold text-lg">Services</a>
+                <a href="#projects" class="mobile-link px-4 py-3 rounded-xl hover:bg-soft font-bold text-lg">Projects</a>
+                <a href="#contact" class="mobile-link px-4 py-3 rounded-xl hover:bg-soft font-bold text-lg">Contact</a>
+                <a href="/login" class="mobile-link px-4 py-3 rounded-xl hover:bg-soft font-bold text-lg text-left flex items-center gap-3">
+                    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+                    Employee Access
+                </a>
+                <a href="#contact" class="mobile-link btn btn-primary py-4 mt-2">Get a Quote</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative overflow-hidden pt-28 md:pt-36 pb-16 md:pb-24">
+        <div class="absolute inset-0 dots opacity-60 [mask-image:radial-gradient(ellipse_at_30%_20%,#000,transparent_70%)]" aria-hidden="true"></div>
+        <div class="blob w-[480px] h-[480px] bg-accent/20 -top-40 -left-40" aria-hidden="true"></div>
+        <div class="blob w-[520px] h-[520px] bg-primary/15 top-40 -right-40" aria-hidden="true"></div>
+
+        <div class="relative max-w-7xl mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+            <div class="lg:col-span-6">
+                <div class="hero-in inline-flex items-center gap-2.5 bg-white border border-line shadow-card rounded-full pl-2 pr-4 py-1.5 text-sm font-semibold text-muted mb-7">
+                    <span class="bg-accent text-white text-[11px] font-extrabold uppercase tracking-wider rounded-full px-2.5 py-1">Oman</span>
+                    Sohar &amp; Muscat · Sultanate of Oman
+                </div>
+                <h1 class="hero-in font-display font-extrabold tracking-tight text-[2.5rem] leading-[1.05] sm:text-6xl xl:text-7xl text-ink mb-6">
+                    Building <span class="grad-text">Dreams.</span><br>
+                    Engineered for <span class="grad-blue">Trust.</span>
+                </h1>
+                <p class="hero-in text-lg md:text-xl text-muted max-w-xl mb-9 leading-relaxed">
+                    Key Stone Investment LLC — Oman's premier choice for Civil Construction, Industrial Steel, and MEP excellence.
+                </p>
+                <div class="hero-in flex flex-col sm:flex-row gap-3">
+                    <a href="#projects" class="btn btn-primary px-8 py-4 text-base">
+                        Our Portfolio
+                        <svg class="arrow w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                    </a>
+                    <a href="#" class="btn btn-ghost px-8 py-4 text-base">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+                        Profile
+                    </a>
+                </div>
+
+                <div class="hero-in mt-12 flex items-center gap-6 sm:gap-10">
+                    <div><div class="font-display text-3xl md:text-4xl font-extrabold text-ink">15<span class="text-accent">+</span></div><div class="text-xs font-bold text-muted uppercase tracking-widest mt-1">Years Exp.</div></div>
+                    <div class="w-px h-12 bg-line"></div>
+                    <div><div class="font-display text-3xl md:text-4xl font-extrabold text-ink">50<span class="text-accent">+</span></div><div class="text-xs font-bold text-muted uppercase tracking-widest mt-1">Projects</div></div>
+                    <div class="w-px h-12 bg-line"></div>
+                    <div><div class="font-display text-3xl md:text-4xl font-extrabold text-ink">120<span class="text-accent">+</span></div><div class="text-xs font-bold text-muted uppercase tracking-widest mt-1">Manpower</div></div>
+                </div>
+            </div>
+
+            <!-- 3D panel -->
+            <div class="lg:col-span-6 relative hero-in">
+                <div id="hero-panel" class="hero-panel relative rounded-[2.5rem] border border-line shadow-lift overflow-hidden h-[380px] sm:h-[460px] lg:h-[580px]">
+                    <img src="assets/70.jpg" alt="Key Stone construction site" class="hero-fallback absolute inset-0 w-full h-full object-cover">
+                    <div id="hero-canvas" class="hero-canvas absolute inset-0" aria-hidden="true"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white/70 to-transparent pointer-events-none"></div>
+                </div>
+
+                <div class="float-card absolute -left-3 sm:-left-6 top-8 sm:top-12 bg-white/90 backdrop-blur border border-line shadow-lift rounded-2xl px-4 py-3 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-accent/10 text-accent grid place-items-center">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.04A11.96 11.96 0 013.6 6 11.99 11.99 0 003 9.75c0 5.59 3.82 10.29 9 11.62 5.18-1.33 9-6.03 9-11.62 0-1.31-.21-2.57-.6-3.75h-.15c-3.2 0-6.1-1.25-8.25-3.29z"/></svg>
+                    </div>
+                    <div><div class="font-bold text-sm text-ink">Safety First</div><div class="text-xs text-muted">Quality Always</div></div>
+                </div>
+                <div class="float-card delay absolute -right-2 sm:-right-5 bottom-8 sm:bottom-14 bg-white/90 backdrop-blur border border-line shadow-lift rounded-2xl px-4 py-3 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary grid place-items-center font-display font-extrabold text-sm">21+</div>
+                    <div><div class="font-bold text-sm text-ink">Engineers</div><div class="text-xs text-muted">On our team</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services marquee -->
+    <div class="bg-ink text-white py-5 overflow-hidden marquee" aria-hidden="true">
+        <div class="marquee-track font-display font-bold uppercase text-base md:text-lg tracking-wide">
+            <span>Civil Construction</span><span>Steel Structures</span><span>MEP Engineering</span><span>Residential Villas</span><span>Industrial Fabrication</span><span>Warehouses</span><span>HSEQ</span>
+            <span>Civil Construction</span><span>Steel Structures</span><span>MEP Engineering</span><span>Residential Villas</span><span>Industrial Fabrication</span><span>Warehouses</span><span>HSEQ</span>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 md:py-32">
+        <div class="max-w-7xl mx-auto px-5 md:px-8">
+            <div class="grid lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-5 reveal flex flex-col justify-center lg:pr-8">
+                    <span class="eyebrow mb-5">About Us</span>
+                    <h2 class="font-display font-extrabold text-4xl md:text-5xl tracking-tight text-ink leading-[1.1] mb-7">Decades of Legacy in <span class="grad-text">Oman</span></h2>
+                    <div class="space-y-5 text-muted text-lg leading-relaxed">
+                        <p>Key Stone Investment LLC, with its strong connection to Al Tareef, has established itself as a cornerstone of quality in Sohar and Muscat.</p>
+                        <p>Our philosophy is built on client relationships, transparency, and a relentless pursuit of engineering perfection.</p>
+                    </div>
+                </div>
+                <div class="lg:col-span-7 reveal relative">
+                    <div class="tilt rounded-[2rem] overflow-hidden shadow-lift">
+                        <img src="assets/37.jpg" alt="Construction Site" class="w-full h-[320px] md:h-[460px] object-cover" loading="lazy">
+                    </div>
+                    <div class="absolute left-4 bottom-4 md:left-6 md:bottom-6 bg-white/90 backdrop-blur rounded-2xl px-5 py-4 shadow-lift flex items-center gap-4">
+                        <div class="w-11 h-11 rounded-xl bg-accent text-white grid place-items-center">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+                        </div>
+                        <div><div class="font-bold text-ink">Sohar &amp; Muscat</div><div class="text-xs text-muted font-semibold uppercase tracking-widest">Cornerstone of quality</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-6" id="stats">
+                <div class="card card-hover rounded-3xl p-7 md:p-8 reveal">
+                    <div class="font-display text-4xl md:text-5xl font-extrabold text-ink leading-none"><span class="counter" data-target="20">20</span><span class="text-accent">+</span></div>
+                    <div class="text-sm font-bold text-muted uppercase tracking-widest mt-3">Manpower</div>
+                </div>
+                <div class="card card-hover rounded-3xl p-7 md:p-8 reveal">
+                    <div class="font-display text-4xl md:text-5xl font-extrabold text-ink leading-none"><span class="counter" data-target="21">21</span><span class="text-accent">+</span></div>
+                    <div class="text-sm font-bold text-muted uppercase tracking-widest mt-3">Engineers</div>
+                </div>
+                <div class="card card-hover rounded-3xl p-7 md:p-8 reveal">
+                    <div class="font-display text-4xl md:text-5xl font-extrabold text-ink leading-none"><span class="counter" data-target="50">50</span><span class="text-accent">+</span></div>
+                    <div class="text-sm font-bold text-muted uppercase tracking-widest mt-3">Projects</div>
+                </div>
+                <div class="rounded-3xl p-7 md:p-8 reveal bg-gradient-to-br from-accent to-[#FF8A5B] text-white shadow-glow">
+                    <div class="font-display text-4xl md:text-5xl font-extrabold leading-none"><span class="counter" data-target="15">15</span>+</div>
+                    <div class="text-sm font-bold text-white/85 uppercase tracking-widest mt-3">Years Exp.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision & Mission Section -->
+    <section id="vision" class="py-24 md:py-28 bg-soft relative overflow-hidden">
+        <div class="absolute inset-0 dots opacity-40" aria-hidden="true"></div>
+        <div class="relative max-w-7xl mx-auto px-5 md:px-8">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="card card-hover tilt rounded-[2rem] p-9 md:p-12 reveal relative overflow-hidden">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-[#4F62D8] text-white grid place-items-center mb-8 shadow-lg shadow-primary/30">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    </div>
+                    <h3 class="font-display font-extrabold text-2xl md:text-3xl text-ink mb-4">Our Vision</h3>
+                    <p class="text-muted text-lg leading-relaxed">To be the most preferred and trusted construction partner in the Sultanate of Oman.</p>
+                </div>
+                <div class="tilt rounded-[2rem] p-9 md:p-12 reveal relative overflow-hidden bg-ink text-white shadow-lift">
+                    <div class="absolute -left-20 -bottom-24 w-72 h-72 rounded-full bg-accent/30 blur-3xl"></div>
+                    <div class="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-accent to-[#FF8A5B] text-white grid place-items-center mb-8 shadow-glow">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg>
+                    </div>
+                    <h3 class="relative font-display font-extrabold text-2xl md:text-3xl mb-4">Our Mission</h3>
+                    <p class="relative text-white/70 text-lg leading-relaxed">To deliver superior infrastructure solutions through engineering excellence and safety.</p>
+                </div>
+            </div>
+
+            <div class="mt-16">
+                <p class="text-center text-sm font-extrabold uppercase tracking-[0.35em] text-muted mb-8 reveal">Core Values</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                    <div class="card card-hover rounded-3xl p-6 md:p-7 flex items-center gap-4 reveal">
+                        <div class="w-11 h-11 shrink-0 rounded-xl bg-accent/10 text-accent grid place-items-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.5a.56.56 0 011.04 0l2.12 5.11 5.52.44c.5.04.7.66.32.99l-4.2 3.6 1.28 5.38a.56.56 0 01-.84.61L12 16.75l-4.72 2.88a.56.56 0 01-.84-.61l1.28-5.38-4.2-3.6a.56.56 0 01.32-.99l5.52-.44 2.12-5.11z"/></svg></div>
+                        <h5 class="font-bold text-ink text-lg">Quality</h5>
+                    </div>
+                    <div class="card card-hover rounded-3xl p-6 md:p-7 flex items-center gap-4 reveal">
+                        <div class="w-11 h-11 shrink-0 rounded-xl bg-primary/10 text-primary grid place-items-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.04A11.96 11.96 0 013.6 6 11.99 11.99 0 003 9.75c0 5.59 3.82 10.29 9 11.62 5.18-1.33 9-6.03 9-11.62 0-1.31-.21-2.57-.6-3.75h-.15c-3.2 0-6.1-1.25-8.25-3.29z"/></svg></div>
+                        <h5 class="font-bold text-ink text-lg">Trust</h5>
+                    </div>
+                    <div class="card card-hover rounded-3xl p-6 md:p-7 flex items-center gap-4 reveal">
+                        <div class="w-11 h-11 shrink-0 rounded-xl bg-accent/10 text-accent grid place-items-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.02 9.35h4.99v-.01M2.99 19.64v-5m0 0h4.99m-4.99 0l3.18 3.18a8.25 8.25 0 0013.8-3.7M4.03 9.87a8.25 8.25 0 0113.8-3.7l3.18 3.18m0-4.99v4.99"/></svg></div>
+                        <h5 class="font-bold text-ink text-lg">Reliability</h5>
+                    </div>
+                    <div class="card card-hover rounded-3xl p-6 md:p-7 flex items-center gap-4 reveal">
+                        <div class="w-11 h-11 shrink-0 rounded-xl bg-primary/10 text-primary grid place-items-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.19m-1.5.19a6.01 6.01 0 01-1.5-.19m3.75 7.48a12.06 12.06 0 01-4.5 0m3.75 2.38a14.4 14.4 0 01-3 0M14.25 18v-.19c0-.98.66-1.82 1.51-2.32a7.5 7.5 0 10-7.52 0c.85.5 1.51 1.34 1.51 2.32V18"/></svg></div>
+                        <h5 class="font-bold text-ink text-lg">Innovation</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 md:py-32">
+        <div class="max-w-7xl mx-auto px-5 md:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 reveal">
+                <div>
+                    <span class="eyebrow mb-5">What We Do</span>
+                    <h2 class="font-display font-extrabold text-4xl md:text-5xl tracking-tight text-ink">Construction Mastery</h2>
+                </div>
+                <a href="#contact" class="btn btn-ghost px-6 py-3 text-sm self-start md:self-auto">Discuss a project
+                    <svg class="arrow w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                </a>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="card card-hover tilt rounded-[2rem] p-9 md:p-10 reveal group relative overflow-hidden">
+                    <div class="absolute top-8 right-9 font-display font-extrabold text-5xl text-line">01</div>
+                    <div class="w-16 h-16 rounded-2xl bg-accent/10 text-accent grid place-items-center mb-8 group-hover:bg-accent group-hover:text-white transition-colors duration-500">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    </div>
+                    <h3 class="font-display font-extrabold text-2xl text-ink mb-3">Civil Construction</h3>
+                    <p class="text-muted">High-performance building and infrastructure maintenance.</p>
+                    <div class="mt-8 h-1 w-12 rounded bg-accent group-hover:w-full transition-all duration-700"></div>
+                </div>
+                <div class="card card-hover tilt rounded-[2rem] p-9 md:p-10 reveal group relative overflow-hidden">
+                    <div class="absolute top-8 right-9 font-display font-extrabold text-5xl text-line">02</div>
+                    <div class="w-16 h-16 rounded-2xl bg-primary/10 text-primary grid place-items-center mb-8 group-hover:bg-primary group-hover:text-white transition-colors duration-500">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="font-display font-extrabold text-2xl text-ink mb-3">Steel Structures</h3>
+                    <p class="text-muted">Industrial-grade fabrication for complex engineering needs.</p>
+                    <div class="mt-8 h-1 w-12 rounded bg-primary group-hover:w-full transition-all duration-700"></div>
+                </div>
+                <div class="card card-hover tilt rounded-[2rem] p-9 md:p-10 reveal group relative overflow-hidden">
+                    <div class="absolute top-8 right-9 font-display font-extrabold text-5xl text-line">03</div>
+                    <div class="w-16 h-16 rounded-2xl bg-accent/10 text-accent grid place-items-center mb-8 group-hover:bg-accent group-hover:text-white transition-colors duration-500">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="font-display font-extrabold text-2xl text-ink mb-3">MEP Engineering</h3>
+                    <p class="text-muted">Precision mechanical and electrical systems for buildings.</p>
+                    <div class="mt-8 h-1 w-12 rounded bg-accent group-hover:w-full transition-all duration-700"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HSEQ Section -->
+    <section id="hseq" class="px-3 md:px-6">
+        <div class="max-w-[1400px] mx-auto rounded-[2.5rem] bg-ink text-white relative overflow-hidden py-20 md:py-28">
+            <div class="absolute -right-32 -top-32 w-[460px] h-[460px] rounded-full bg-accent/25 blur-3xl"></div>
+            <div class="absolute -left-32 -bottom-40 w-[460px] h-[460px] rounded-full bg-primary/50 blur-3xl"></div>
+            <div class="relative max-w-7xl mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-14 items-center">
+                <div class="reveal">
+                    <span class="eyebrow mb-5">HSEQ</span>
+                    <h2 class="font-display font-extrabold text-4xl md:text-5xl tracking-tight mb-7 leading-[1.1]">Safety First,<br>Quality Always</h2>
+                    <p class="text-white/65 text-lg mb-10 leading-relaxed">At Key Stone Investment LLC, Health, Safety, Environment, and Quality are at the heart of everything we do. We maintain rigorous standards to ensure the well-being of our 120+ manpower and the excellence of our deliverables.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl px-5 py-4">
+                            <span class="w-9 h-9 shrink-0 rounded-lg bg-accent grid place-items-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></span>
+                            <span>Comprehensive Risk Assessment for every project</span>
+                        </li>
+                        <li class="flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl px-5 py-4">
+                            <span class="w-9 h-9 shrink-0 rounded-lg bg-accent grid place-items-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></span>
+                            <span>Strict adherence to Oman's Environmental Policies</span>
+                        </li>
+                        <li class="flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl px-5 py-4">
+                            <span class="w-9 h-9 shrink-0 rounded-lg bg-accent grid place-items-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></span>
+                            <span>Continuous Quality Assurance &amp; Control</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="grid grid-cols-2 gap-4 reveal">
+                    <img src="assets/40.jpg" alt="Safety Gear" class="parallax rounded-3xl h-64 md:h-96 w-full object-cover shadow-2xl" data-speed="-0.06" loading="lazy">
+                    <img src="assets/43.jpg" alt="Inspection" class="parallax rounded-3xl h-64 md:h-96 w-full object-cover mt-12 shadow-2xl" data-speed="0.06" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 md:py-32">
+        <div class="max-w-7xl mx-auto px-5 md:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 reveal">
+                <div>
+                    <span class="eyebrow mb-5">Portfolio</span>
+                    <h2 class="font-display font-extrabold text-4xl md:text-5xl tracking-tight text-ink">Our Masterpieces</h2>
+                </div>
+                <div class="flex items-center bg-soft border border-line p-1.5 rounded-full self-start md:self-auto" role="tablist">
+                    <button id="toggle-process" class="seg-btn is-active px-4 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold" role="tab" aria-selected="true">Process Execution</button>
+                    <button id="toggle-project" class="seg-btn px-4 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold" role="tab" aria-selected="false">Completed Project</button>
+                </div>
+            </div>
+
+            <!-- Grid A: Process Execution -->
+            <div id="grid-process" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <article class="project card card-hover tilt rounded-[2rem] overflow-hidden group reveal">
+                    <div class="relative h-64 md:h-72 overflow-hidden bg-soft">
+                        <img src="assets/70.jpg" alt="Ten residential villas in Saham during construction" class="project-img absolute inset-0 w-full h-full object-cover group-hover:opacity-0" loading="lazy">
+                        <img src="assets/71.jpg" alt="" class="project-img absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100" loading="lazy">
+                        <span class="absolute top-4 left-4 bg-white/90 backdrop-blur rounded-full px-3 py-1 text-[11px] font-bold text-ink">Before → After</span>
+                    </div>
+                    <div class="p-6 md:p-7">
+                        <div class="text-accent font-extrabold text-[11px] tracking-[0.2em] uppercase mb-2">Residential Development</div>
+                        <h4 class="font-display font-extrabold text-xl text-ink">Ten Residential Villa in Saham</h4>
+                    </div>
+                </article>
+                <article class="project card card-hover tilt rounded-[2rem] overflow-hidden group reveal">
+                    <div class="relative h-64 md:h-72 overflow-hidden bg-soft">
+                        <img src="assets/60.jpg" alt="Falaj, Sohar construction" class="project-img absolute inset-0 w-full h-full object-contain group-hover:opacity-0" loading="lazy">
+                        <img src="assets/62.jpg" alt="" class="project-img absolute inset-0 w-full h-full object-contain opacity-0 group-hover:opacity-100" loading="lazy">
+                        <span class="absolute top-4 left-4 bg-white/90 backdrop-blur rounded-full px-3 py-1 text-[11px] font-bold text-ink">Before → After</span>
+                    </div>
+                    <div class="p-6 md:p-7">
+                        <div class="text-accent font-extrabold text-[11px] tracking-[0.2em] uppercase mb-2">Construction</div>
+                        <h4 class="font-display font-extrabold text-xl text-ink">Falaj, Sohar</h4>
+                    </div>
+                </article>
+                <article class="project card card-hover tilt rounded-[2rem] overflow-hidden group reveal">
+                    <div class="relative h-64 md:h-72 overflow-hidden bg-soft">
+                        <img src="assets/58.jpg" alt="Falaj Al Qabail, Sohar fabrication" class="project-img absolute inset-0 w-full h-full object-contain group-hover:opacity-0" loading="lazy">
+                        <img src="assets/59.jpg" alt="" class="project-img absolute inset-0 w-full h-full object-contain opacity-0 group-hover:opacity-100" loading="lazy">
+                        <span class="absolute top-4 left-4 bg-white/90 backdrop-blur rounded-full px-3 py-1 text-[11px] font-bold text-ink">Before → After</span>
+                    </div>
+                    <div class="p-6 md:p-7">
+                        <div class="text-accent font-extrabold text-[11px] tracking-[0.2em] uppercase mb-2">Industrial Fabrication</div>
+                        <h4 class="font-display font-extrabold text-xl text-ink">Falaj Al Qabail, Sohar</h4>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Grid B: Completed Projects -->
+            <div id="grid-project" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <article class="project card card-hover tilt rounded-[2rem] overflow-hidden group">
+                    <div class="relative h-64 md:h-72 overflow-hidden"><img src="assets/63.jpg" alt="Haia Al Rafa residential complex, Sohar" class="project-img w-full h-full object-cover" loading="lazy"></div>
+                    <div class="p-6 md:p-7">
+                        <div class="text-accent font-extrabold text-[11px] tracking-[0.2em] uppercase mb-2">Residential Complex</div>
+                        <h4 class="font-display font-extrabold text-xl text-ink">Haia Al Rafa, Sohar</h4>
+                    </div>
+                </article>
+                <article class="project card card-hover tilt rounded-[2rem] overflow-hidden group">
+                    <div class="relative h-64 md:h-72 overflow-hidden"><img src="assets/57.jpg" alt="Labour camp, Sohar" class="project-img w-full h-full object-cover" loading="lazy"></div>
+                    <div class="p-6 md:p-7">
+                        <div class="text-accent font-extrabold text-[11px] tracking-[0.2em] uppercase mb-2">Infrastructure</div>
+                        <h4 class="font-display font-extrabold text-xl text-ink">Labour Camp, Sohar</h4>
+                    </div>
+                </article>
+                <article class="project card card-hover tilt rounded-[2rem] overflow-hidden group">
+                    <div class="relative h-64 md:h-72 overflow-hidden"><img src="assets/72.jpg" alt="Residential villa in Sohar" class="project-img w-full h-full object-cover" loading="lazy"></div>
+                    <div class="p-6 md:p-7">
+                        <div class="text-accent font-extrabold text-[11px] tracking-[0.2em] uppercase mb-2">Residential Excellence</div>
+                        <h4 class="font-display font-extrabold text-xl text-ink">Residential Villa in Sohar</h4>
+                    </div>
+                </article>
+                <article class="project card card-hover tilt rounded-[2rem] overflow-hidden group">
+                    <div class="relative h-64 md:h-72 overflow-hidden"><img src="assets/45.jpg" alt="Mazoon Dairy Firm, Ibri" class="project-img w-full h-full object-cover" loading="lazy"></div>
+                    <div class="p-6 md:p-7">
+                        <div class="text-accent font-extrabold text-[11px] tracking-[0.2em] uppercase mb-2">Dairy Production</div>
+                        <h4 class="font-display font-extrabold text-xl text-ink">Mazoon Dairy Firm, Ibri</h4>
+                    </div>
+                </article>
+                <article class="project card card-hover tilt rounded-[2rem] overflow-hidden group">
+                    <div class="relative h-64 md:h-72 overflow-hidden"><img src="assets/73.jpg" alt="Warehouse in Falaj Al Ohi" class="project-img w-full h-full object-cover" loading="lazy"></div>
+                    <div class="p-6 md:p-7">
+                        <div class="text-accent font-extrabold text-[11px] tracking-[0.2em] uppercase mb-2">Industrial Storage</div>
+                        <h4 class="font-display font-extrabold text-xl text-ink">Ware House in Flaj Al Ohi</h4>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-24 md:py-32 bg-soft relative overflow-hidden">
+        <div class="absolute inset-0 dots opacity-40" aria-hidden="true"></div>
+        <div class="relative max-w-7xl mx-auto px-5 md:px-8">
+            <div class="text-center mb-14 reveal">
+                <span class="eyebrow mb-5">Leadership</span>
+                <h2 class="font-display font-extrabold text-4xl md:text-5xl tracking-tight text-ink">The Visionaries</h2>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="card card-hover tilt rounded-[2rem] p-3 group reveal">
+                    <div class="overflow-hidden rounded-[1.5rem]"><img src="assets/72.jpg" alt="Director" class="w-full h-72 object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy"></div>
+                    <h4 class="font-display font-extrabold text-lg text-ink px-3 pt-5 pb-3">Managing Director</h4>
+                </div>
+                <div class="card card-hover tilt rounded-[2rem] p-3 group reveal">
+                    <div class="overflow-hidden rounded-[1.5rem]"><img src="assets/63.jpg" alt="Chief Engineer" class="w-full h-72 object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy"></div>
+                    <h4 class="font-display font-extrabold text-lg text-ink px-3 pt-5 pb-3">Chief Engineer</h4>
+                </div>
+                <div class="tilt rounded-[2rem] p-8 flex flex-col justify-end min-h-[240px] bg-ink text-white shadow-lift relative overflow-hidden reveal">
+                    <div class="absolute -right-10 -top-10 w-44 h-44 rounded-full bg-primary/60 blur-2xl"></div>
+                    <div class="relative font-display text-6xl font-extrabold tracking-tight">21<span class="text-accent">+</span></div>
+                    <p class="relative text-white/60 font-bold uppercase tracking-widest text-sm mt-2">Engineers</p>
+                </div>
+                <div class="tilt rounded-[2rem] p-8 flex flex-col justify-end min-h-[240px] bg-gradient-to-br from-accent to-[#FF8A5B] text-white shadow-glow relative overflow-hidden reveal">
+                    <div class="absolute -right-10 -top-10 w-44 h-44 rounded-full bg-white/20"></div>
+                    <div class="relative font-display text-6xl font-extrabold tracking-tight">120+</div>
+                    <p class="relative text-white/85 font-bold uppercase tracking-widest text-sm mt-2">Skilled Manpower</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 md:py-32">
+        <div class="max-w-7xl mx-auto px-5 md:px-8">
+            <div class="card rounded-[2.5rem] overflow-hidden grid lg:grid-cols-5 reveal shadow-lift">
+                <div class="lg:col-span-2 relative bg-ink text-white p-9 md:p-14 overflow-hidden">
+                    <div class="absolute -left-24 -bottom-24 w-80 h-80 rounded-full bg-accent/35 blur-3xl"></div>
+                    <div class="absolute -right-20 -top-20 w-72 h-72 rounded-full bg-primary/60 blur-3xl"></div>
+                    <div class="relative">
+                        <span class="eyebrow mb-5">Contact</span>
+                        <h2 class="font-display font-extrabold text-4xl md:text-5xl tracking-tight mb-5">Get In Touch</h2>
+                        <p class="text-white/65 text-lg mb-12">Discuss your building requirements with our experts.</p>
+                        <div class="space-y-5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 grid place-items-center text-accent shrink-0"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></div>
+                                <span class="text-lg font-semibold">Sohar, Oman</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 grid place-items-center text-accent shrink-0"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg></div>
+                                <span class="text-lg font-semibold">+968 2684 XXXX</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-3 p-9 md:p-14">
+                    <form action="#" class="space-y-5">
+                        <div class="grid md:grid-cols-2 gap-5">
+                            <label class="block"><span class="block text-sm font-bold text-ink mb-2">Name</span><input type="text" placeholder="Your full name" class="field"></label>
+                            <label class="block"><span class="block text-sm font-bold text-ink mb-2">Email</span><input type="email" placeholder="you@company.com" class="field"></label>
+                        </div>
+                        <label class="block"><span class="block text-sm font-bold text-ink mb-2">Message</span><textarea rows="5" placeholder="Tell us about your project" class="field resize-none"></textarea></label>
+                        <button type="submit" class="btn btn-primary w-full py-5 text-lg">Send Request
+                            <svg class="arrow w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-ink text-white pt-20 pb-10 rounded-t-[2.5rem]">
+        <div class="max-w-7xl mx-auto px-5 md:px-8">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="bg-white rounded-xl p-2"><svg class="w-12 h-8 block"><use href="#ks-mark"/></svg></span>
+                        <span class="leading-none">
+                            <span class="block font-display font-extrabold tracking-tight text-lg text-accent">KEYSTONE</span>
+                            <span class="block text-xs font-bold text-white/70 mt-1">Investment LLC</span>
+                        </span>
+                    </div>
+                    <p class="text-white/50 leading-relaxed">Limitless engineering and construction excellence across the Sultanate of Oman.</p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-extrabold mb-6 uppercase tracking-[0.2em] text-accent">Links</h4>
+                    <ul class="space-y-3 text-white/65 font-semibold">
+                        <li><a href="#home" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#about" class="hover:text-white transition-colors">About</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">Services</a></li>
+                        <li><a href="#projects" class="hover:text-white transition-colors">Projects</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-extrabold mb-6 uppercase tracking-[0.2em] text-accent">Office</h4>
+                    <p class="text-white/70 font-semibold">Sohar Port, Oman</p>
+                    <p class="text-white/50">Registered HQ - Al Tareef Connection</p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-extrabold mb-6 uppercase tracking-[0.2em] text-accent">Contact</h4>
+                    <p class="text-white/70 font-semibold mb-2">+968 2684 XXXX</p>
+                    <p class="text-white/50">info@keystone-oman.com</p>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 text-center text-white/40 text-xs uppercase tracking-widest">
+                <p>&copy; 2026 Key Stone Investment LLC. Oman. Proudly Engineered.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/96812345678" target="_blank" rel="noopener" class="fixed bottom-5 right-5 md:bottom-8 md:right-8 bg-[#25D366] text-white p-4 rounded-full shadow-2xl shadow-[#25D366]/40 hover:scale-110 transition-all z-50 flex items-center space-x-2" aria-label="Chat with us on WhatsApp">
+        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.541 5.321-11.862 11.861-11.862 3.171 0 6.149 1.236 8.389 3.475s3.476 5.219 3.476 8.39c0 6.541-5.32 11.862-11.86 11.862-2.016 0-3.991-.515-5.748-1.488l-6.221 1.732zm6.386-4.746c1.586.942 3.116 1.417 4.604 1.417 5.349 0 9.702-4.354 9.702-9.704 0-2.593-1.01-5.033-2.844-6.866s-4.272-2.843-6.858-2.843c-5.351 0-9.704 4.355-9.704 9.704 0 1.714.457 3.393 1.321 4.869l-.999 3.647 3.778-.924zm10.749-6.427c-.249-.124-1.474-.727-1.703-.811-.229-.084-.395-.124-.56.124s-.644.811-.789.977c-.145.166-.29.187-.539.063-.249-.124-1.052-.387-2.003-1.236-.74-.66-1.239-1.475-1.385-1.724-.145-.249-.015-.384.109-.507.112-.111.249-.29.374-.436.124-.145.166-.249.249-.415.084-.166.042-.311-.021-.436-.063-.124-.56-1.349-.768-1.848-.203-.485-.407-.419-.56-.427-.145-.008-.312-.009-.478-.009s-.436.063-.665.311c-.229.249-.873.852-.873 2.077s.893 2.409 1.019 2.575c.124.166 1.758 2.686 4.258 3.764.595.256 1.059.41 1.421.524.597.19 1.141.163 1.571.099.479-.071 1.474-.602 1.682-1.184.208-.582.208-1.079.145-1.184-.063-.105-.229-.166-.478-.29z"/></svg>
+        <span class="hidden md:block font-bold">Chat with us</span>
+    </a>
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        (function () {
+            const root = document.documentElement;
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+            const hasGsap = !!(window.gsap && window.ScrollTrigger);
+            if (!hasGsap) root.classList.remove('anim');
+
+            // Nav state + scroll progress
+            const nav = document.getElementById('navbar');
+            let ticking = false;
+            const onScroll = () => {
+                const y = window.scrollY, max = root.scrollHeight - innerHeight;
+                nav.classList.toggle('is-scrolled', y > 20);
+                root.style.setProperty('--p', max > 0 ? (y / max).toFixed(4) : 0);
+                ticking = false;
+            };
+            addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+            onScroll();
+
+            // Active nav link
+            const navLinks = document.querySelectorAll('.nav-link');
+            const spy = new IntersectionObserver((entries) => {
+                entries.forEach((e) => {
+                    if (!e.isIntersecting) return;
+                    navLinks.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === '#' + e.target.id));
+                });
+            }, { rootMargin: '-45% 0px -50% 0px' });
+            document.querySelectorAll('section[id]').forEach((s) => spy.observe(s));
+
+            // Mobile menu
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const setMenu = (open) => {
+                mobileMenu.classList.toggle('hidden', !open);
+                mobileMenu.classList.toggle('flex', open);
+                menuToggle.setAttribute('aria-expanded', String(open));
+                menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+            };
+            menuToggle.addEventListener('click', () => setMenu(mobileMenu.classList.contains('hidden')));
+            document.querySelectorAll('.mobile-link').forEach((l) => l.addEventListener('click', () => setMenu(false)));
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+
+            // Entrance + scroll reveals
+            if (hasGsap && !reduceMotion) {
+                gsap.registerPlugin(ScrollTrigger);
+                gsap.from('.hero-in', { opacity: 0, y: 36, duration: 1, stagger: 0.1, ease: 'power3.out', delay: 0.1 });
+                gsap.utils.toArray('.parallax').forEach((img) => {
+                    gsap.to(img, { yPercent: parseFloat(img.dataset.speed) * 100, ease: 'none', scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: true } });
+                });
+            }
+
+            // Scroll reveals: IntersectionObserver + CSS transitions (finish on time even at low frame rates)
+            const reveals = document.querySelectorAll('.reveal');
+            if (root.classList.contains('anim') && 'IntersectionObserver' in window) {
+                const rio = new IntersectionObserver((entries) => {
+                    entries.filter((e) => e.isIntersecting).forEach((e, i) => {
+                        e.target.style.transitionDelay = Math.min(i, 5) * 0.08 + 's';
+                        e.target.classList.add('is-in');
+                        rio.unobserve(e.target);
+                    });
+                }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+                reveals.forEach((el) => rio.observe(el));
+            } else {
+                reveals.forEach((el) => el.classList.add('is-in'));
+            }
+
+            // Counters (once)
+            const counters = document.querySelectorAll('.counter');
+            if (!reduceMotion && counters.length) {
+                counters.forEach((c) => (c.textContent = '0'));
+                const animate = (el) => {
+                    const target = +el.dataset.target, start = performance.now();
+                    const step = (now) => {
+                        const p = Math.min((now - start) / 1800, 1);
+                        el.textContent = Math.floor((1 - Math.pow(2, -10 * p)) * target);
+                        if (p < 1) requestAnimationFrame(step); else el.textContent = target;
+                    };
+                    requestAnimationFrame(step);
+                };
+                const io = new IntersectionObserver((entries) => {
+                    if (entries.some((e) => e.isIntersecting)) { counters.forEach(animate); io.disconnect(); }
+                }, { threshold: 0.3 });
+                io.observe(document.getElementById('stats'));
+            }
+
+            // Projects toggle
+            const processBtn = document.getElementById('toggle-process');
+            const projectBtn = document.getElementById('toggle-project');
+            const gridProcess = document.getElementById('grid-process');
+            const gridProject = document.getElementById('grid-project');
+            const show = (which) => {
+                const proc = which === 'process';
+                processBtn.classList.toggle('is-active', proc);
+                projectBtn.classList.toggle('is-active', !proc);
+                processBtn.setAttribute('aria-selected', String(proc));
+                projectBtn.setAttribute('aria-selected', String(!proc));
+                gridProcess.classList.toggle('hidden', !proc);
+                gridProject.classList.toggle('hidden', proc);
+                const grid = proc ? gridProcess : gridProject;
+                grid.querySelectorAll('.reveal').forEach((el) => el.classList.add('is-in'));
+                if (hasGsap && !reduceMotion) gsap.fromTo(grid.children, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.07, ease: 'power3.out', clearProps: 'transform' });
+            };
+            processBtn.addEventListener('click', () => show('process'));
+            projectBtn.addEventListener('click', () => show('project'));
+
+            // 3D tilt on cards (mouse only)
+            if (finePointer && !reduceMotion) {
+                document.querySelectorAll('.tilt').forEach((card) => {
+                    card.addEventListener('pointermove', (e) => {
+                        const r = card.getBoundingClientRect();
+                        const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+                        card.style.transition = 'transform .12s linear, box-shadow .5s, border-color .4s';
+                        card.style.transform = `perspective(1100px) rotateX(${((0.5 - y) * 6).toFixed(2)}deg) rotateY(${((x - 0.5) * 6).toFixed(2)}deg) translateY(-4px)`;
+                    });
+                    card.addEventListener('pointerleave', () => { card.style.transition = ''; card.style.transform = ''; });
+                });
+            }
+
+            // Lazy-load the 3D hero on capable devices; the photo stays as fallback
+            const canRun3D = () => {
+                if (reduceMotion) return false;
+                const c = navigator.connection;
+                if (c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || ''))) return false;
+                if (navigator.deviceMemory && navigator.deviceMemory < 2) return false;
+                if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) return false;
+                try { const cv = document.createElement('canvas'); return !!(cv.getContext('webgl2') || cv.getContext('webgl')); } catch (e) { return false; }
+            };
+            const load3D = () => {
+                if (!canRun3D()) return;
+                import('./assets/js/hero3d.js')
+                    .then((m) => m.initHero(document.getElementById('hero-canvas')))
+                    .catch((err) => console.warn('3D hero disabled:', err && err.message));
+            };
+            const idle = (fn) => ('requestIdleCallback' in window ? requestIdleCallback(fn, { timeout: 1200 }) : setTimeout(fn, 300));
+            if (document.readyState === 'complete') idle(load3D); else addEventListener('load', () => idle(load3D));
+        })();
+    </script>
+</body>
+</html>
