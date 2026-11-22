@@ -44,4 +44,11 @@ export const env = {
   get isProduction() {
     return process.env.NODE_ENV === "production";
   },
+  // The 000000 test sign-in (and running without SMTP). Always on locally. In a deployed
+  // build it is OFF unless ALLOW_TEST_LOGIN=1 is set, so real production stays locked to
+  // emailed codes. Only enable it on a throwaway/dummy deployment with no real data: while it
+  // is on, anyone who knows an account's email can sign in with 000000.
+  get allowTestLogin() {
+    return !this.isProduction || process.env.ALLOW_TEST_LOGIN === "1";
+  },
 };

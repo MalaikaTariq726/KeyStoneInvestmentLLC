@@ -95,15 +95,14 @@ export async function verifyCode(rawEmail: string, rawCode: string): Promise<Ver
   const invalid: VerifyResult = { ok: false, error: "That code isn't right. Check the email and try again." };
   if (!isAllowedEmail(email) || code.length !== 6) return invalid;
 
-  // DEVELOPMENT-ONLY testing shortcut: the fixed code 000000 signs in as any account that
-  // already exists, with no email required. It is gated on NODE_ENV !== "production", so it is
-  // INERT on the deployed site (Vercel / `next start` set NODE_ENV=production) - there a real
-  // emailed code is always required. Do not remove this gate; without it this would be an open
-  // back door into any account.
-  if (!env.isProduction && code === "000000") {
+  // TEST sign-in shortcut: the fixed code 000000 signs in as any existing account, no email
+  // required. Always on locally; on a deployed build it is OFF unless ALLOW_TEST_LOGIN=1 is set
+  // (see env.allowTestLogin). Keep it off on any deployment with real data - while on, anyone
+  // who knows an account's email can sign in with 000000.
+  if (env.allowTestLogin && code === "000000") {
     const user = await findUserByEmail(email);
     if (!user) return invalid;
-    console.warn(`[dev] 000000 test login used for ${email} - this NEVER works in production.`);
+    console.warn(`[test-login] 000000 sign-in used for ${email}`);
     return { ok: true, userId: user._id.toHexString() };
   }
 

@@ -8,8 +8,9 @@ export function isMailConfigured() {
 
 export async function sendLoginCode(to: string, name: string, code: string) {
   if (!isMailConfigured()) {
-    if (env.isProduction) throw new Error("Email sending is not configured (SMTP_* variables).");
-    // Development only: no mailbox configured yet, so show the code in the server console.
+    // Real production must have SMTP. A dev run or a test deployment (ALLOW_TEST_LOGIN=1) can
+    // run without it: the emailed code is skipped and sign-in uses the 000000 test code.
+    if (!env.allowTestLogin) throw new Error("Email sending is not configured (SMTP_* variables).");
     console.log(`\n[dev] Sign-in code for ${to}: ${code}\n`);
     return;
   }

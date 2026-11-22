@@ -27,7 +27,7 @@ npm run dev        # terminal 2: http://localhost:3000 (website) and /login
 
 With no SMTP settings, the 6-digit code is printed in terminal 2.
 
-**Development sign-in shortcut:** when `NODE_ENV` is not `production` (i.e. `npm run dev`), the fixed code **`000000`** signs you in as any existing account, so you don't need email set up locally. This is hard-gated in `src/lib/otp.ts` and is completely inert once deployed — on Vercel a real emailed code is always required.
+**Test sign-in shortcut:** the fixed code **`000000`** signs you in as any existing account with no email needed. It is always on locally (`npm run dev`). On a **deployed** build it is **off** unless you set `ALLOW_TEST_LOGIN=1` — set that only on a throwaway/dummy deployment with no real data, so a real production site stays locked to emailed codes. See `env.allowTestLogin` in `src/lib/env.ts`.
 
 ## Settings
 
