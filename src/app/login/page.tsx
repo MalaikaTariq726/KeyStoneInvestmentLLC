@@ -4,8 +4,6 @@ import { Logo, LogoMark } from "@/components/Logo";
 
 export const metadata: Metadata = { title: "Sign in" };
 
-// Always points at the newest published desktop release.
-const RELEASES = "https://github.com/MalaikaTariq726/KeyStoneInvestmentApp-releases/releases/latest";
 
 export default function LoginPage() {
   const domain = (process.env.ALLOWED_EMAIL_DOMAIN || "keystoneinvestmentllc.com").replace(/^@/, "");
@@ -41,12 +39,6 @@ export default function LoginPage() {
             <Logo />
           </a>
           <LoginForm domain={domain} />
-          <div className="mt-10 border-t border-line pt-6 text-center text-sm text-muted">
-            Prefer the Windows app?{" "}
-            <a className="font-bold text-primary hover:text-accent" href={`${RELEASES}/download/KeyStoneInvestmentApp-win-Setup.exe`}>Download</a>
-            {" · "}
-            <a className="font-bold text-primary hover:text-accent" href={`${RELEASES}/download/KeyStoneInvestmentApp-win-Portable.zip`}>Portable (.zip)</a>
-          </div>
         </div>
       </section>
     </main>

@@ -2,7 +2,7 @@ import "server-only";
 import { createHmac, randomInt, timingSafeEqual } from "node:crypto";
 import { C, getDb } from "./db";
 import { env } from "./env";
-import { sendLoginCode } from "./mail";
+import { isMailConfigured, sendLoginCode } from "./mail";
 import type { UserDoc } from "./models";
 
 const CODE_TTL_MS = 10 * 60 * 1000;
@@ -56,6 +56,10 @@ export async function requestCode(rawEmail: string): Promise<RequestResult> {
   if (!isAllowedEmail(email)) {
     return { ok: false, error: `Use your @${env.allowedDomain} work email.` };
   }
+
+  // Test mode with no mailbox (local, or a dummy deploy with ALLOW_TEST_LOGIN=1): don't send or
+  // rate-limit anything - just let the form advance to the code box, where 000000 signs in.
+  if (env.allowTestLogin && !isMailConfigured()) return { ok: true };
 
   const col = await codes();
   const now = Date.now();
