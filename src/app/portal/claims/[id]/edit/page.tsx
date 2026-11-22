@@ -26,7 +26,8 @@ export default async function EditClaimPage({ params }: { params: Promise<{ id: 
   }
 
   // This claim's own amount is already reserved against the balance - add it back.
-  let available = creditSummary(me.doc, creditClaims).available;
+  const creditInfo = creditSummary(me.doc, creditClaims);
+  let available = creditInfo.available;
   if (claim.fundedByCredit) available += totalAmount(claim);
   const isProject = (claim.claimType ?? "").toLowerCase() === "project" && claim.projectId;
 
@@ -38,6 +39,7 @@ export default async function EditClaimPage({ params }: { params: Promise<{ id: 
         projects={projects}
         currentUserId={me.id}
         myAvailableCredit={available}
+        myGrantedCredit={creditInfo.granted}
         successHref={back}
         edit={{
           claimId: id,

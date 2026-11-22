@@ -10,9 +10,10 @@ interface Props {
   mode: "claim" | "expense";
   projects: Array<{ id: string; name: string }>;
   // claim mode
-  users?: Array<{ id: string; name: string; available: number }>; // admins raising for others
+  users?: Array<{ id: string; name: string; available: number; granted: number }>; // admins raising for others
   currentUserId?: string;
   myAvailableCredit?: number;
+  myGrantedCredit?: number;
   // expense mode: fixed project (or general when undefined)
   projectId?: string;
   successHref: string;
@@ -24,7 +25,7 @@ interface Props {
   };
 }
 
-export function EntryForm({ mode, projects, users, currentUserId, myAvailableCredit = 0, projectId, successHref, edit }: Props) {
+export function EntryForm({ mode, projects, users, currentUserId, myAvailableCredit = 0, myGrantedCredit = 0, projectId, successHref, edit }: Props) {
   const init = edit?.initial;
   const router = useRouter();
   const [applyTo, setApplyTo] = useState(init?.applyTo ?? "General");
@@ -43,9 +44,10 @@ export function EntryForm({ mode, projects, users, currentUserId, myAvailableCre
   const [busy, setBusy] = useState(false);
 
   const available = users ? users.find((u) => u.id === raisedBy)?.available ?? 0 : myAvailableCredit;
+  const granted = users ? users.find((u) => u.id === raisedBy)?.granted ?? 0 : myGrantedCredit;
   const amountNum = Number(amount) || 0;
   const total = useMemo(() => totalWithTax(amountNum, taxMode, Number(taxPercent) || 0), [amountNum, taxMode, taxPercent]);
-  const forcedCredit = mode === "claim" && available > 0;
+  const forcedCredit = mode === "claim" && granted > 0;
   const creditOn = forcedCredit || fundedByCredit;
   const overCredit = creditOn && total > available + 0.01;
 
@@ -53,7 +55,9 @@ export function EntryForm({ mode, projects, users, currentUserId, myAvailableCre
     e.preventDefault();
     setError("");
     if (overCredit) {
-      setError(`The total including tax is more than the available credit (${omr(available)}).`);
+      setError(available > 0
+        ? `The total including tax is more than the available credit (${omr(available)}). Reduce the amount.`
+        : "No credit is available (the balance is used up). More credit must be granted before you can claim.");
       return;
     }
     setBusy(true);
@@ -156,9 +160,11 @@ export function EntryForm({ mode, projects, users, currentUserId, myAvailableCre
             <span>
               <span className="block font-bold">Funded from credit balance</span>
               <span className={`block text-sm ${overCredit ? "font-semibold text-red-700" : "text-muted"}`}>
-                {available > 0
-                  ? `Available credit: ${omr(available)}. A claim can't be more than this - it is paid from the credit already given.`
-                  : "No credit balance, so this is a normal reimbursement."}
+                {granted <= 0
+                  ? "No credit balance, so this is a normal reimbursement."
+                  : available > 0
+                    ? `Available credit: ${omr(available)}. A claim can't be more than this - it is paid from the credit already given.`
+                    : "Credit used up - OMR 0 available. More credit must be granted before a claim can be made."}
               </span>
             </span>
           </label>

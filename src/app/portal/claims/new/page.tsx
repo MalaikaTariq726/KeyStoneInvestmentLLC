@@ -10,10 +10,13 @@ export default async function NewClaimPage() {
   const me = await requireUser();
   const [projects, creditClaims] = await Promise.all([listProjectNames(), listClaimsForCredit()]);
 
-  let users: Array<{ id: string; name: string; available: number }> | undefined;
+  let users: Array<{ id: string; name: string; available: number; granted: number }> | undefined;
   if (me.isAdmin) {
     const all = await listUsers();
-    users = all.map((u) => ({ id: u._id.toHexString(), name: u.fullName || u.email, available: creditSummary(u, creditClaims).available }));
+    users = all.map((u) => {
+      const s = creditSummary(u, creditClaims);
+      return { id: u._id.toHexString(), name: u.fullName || u.email, available: s.available, granted: s.granted };
+    });
   }
 
   return (
@@ -25,6 +28,7 @@ export default async function NewClaimPage() {
         users={users}
         currentUserId={me.id}
         myAvailableCredit={creditSummary(me.doc, creditClaims).available}
+        myGrantedCredit={creditSummary(me.doc, creditClaims).granted}
         successHref="/portal/claims"
       />
     </div>
