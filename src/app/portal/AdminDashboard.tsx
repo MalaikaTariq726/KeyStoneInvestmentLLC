@@ -364,7 +364,7 @@ function Donut({ slices }: { slices: Array<{ label: string; value: number; color
   const c = 2 * Math.PI * r;
   let offset = 0;
   return (
-    <div className="flex flex-col items-center gap-5 sm:flex-row lg:flex-col xl:flex-row">
+    <div className="flex flex-col items-center justify-center gap-6 sm:flex-row lg:flex-col xl:flex-row">
       <svg viewBox="0 0 120 120" className="h-40 w-40 shrink-0 -rotate-90" role="img" aria-label="Spending split">
         <circle cx="60" cy="60" r={r} fill="none" stroke="#eef1f6" strokeWidth="18" />
         {total > 0 &&
@@ -375,7 +375,7 @@ function Donut({ slices }: { slices: Array<{ label: string; value: number; color
             return el;
           })}
       </svg>
-      <ul className="w-full space-y-2.5 text-sm">
+      <ul className="w-full max-w-xs space-y-2.5 text-sm">
         {slices.map((s) => (
           <li key={s.label} className="flex items-center gap-2.5">
             <span className="h-3 w-3 shrink-0 rounded-sm" style={{ background: s.color }} />
